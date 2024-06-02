@@ -16,9 +16,9 @@ console.log(`word ${word} contains ${countV} vowels and ${countC} consonants`);
 
 //2
 function encodeCaesarСode(str, offset) {
-    str = str.toLowerCase()
-    let encodeStr = ''
-    let alf = 'abcdefghijklmnopqrstuvwxyz'
+    let encodeStr = '';
+    let alphLowerCase = 'abcdefghijklmnopqrstuvwxyz';
+    let alphUpperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     for (let i = 0; i < str.length; i++) {
         if (str[i] === ' ') {    
             encodeStr += ' '
@@ -27,9 +27,15 @@ function encodeCaesarСode(str, offset) {
             if (str[i] === 'z') {     
                 encodeStr += 'a'
             }
-            for (j = 0; j < alf.length; j++) {
-                if (str[i] == alf[j] && str[i] !== 'z') {    
-                    encodeStr += alf[j + 1] 
+            if (str[i] === 'Z') {     
+                encodeStr += 'A'
+            }
+            for (j = 0; j < alphLowerCase.length; j++) {
+                if (str[i] == alphLowerCase[j] && str[i] !== 'z') {    
+                    encodeStr += alphLowerCase[j + 1] 
+                }
+                if (str[i] == alphUpperCase[j] && str[i] !== 'Z') {    
+                    encodeStr += alphUpperCase[j + 1] 
                 } 
             }
         }
@@ -37,15 +43,22 @@ function encodeCaesarСode(str, offset) {
             if (str[i] === 'a') {     
                 encodeStr += 'z'
             }
-            for (j = 0; j < alf.length; j++) {
-                if (str[i] == alf[j] && str[i] !== 'a') {    
-                    encodeStr += alf[j - 1] 
+            if (str[i] === 'A') {     
+                encodeStr += 'Z'
+            }
+            for (j = 0; j < alphLowerCase.length; j++) {
+                if (str[i] == alphLowerCase[j] && str[i] !== 'a') {    
+                    encodeStr += alphLowerCase[j - 1] 
                 } 
+                if (str[i] == alphUpperCase[j] && str[i] !== 'A') {    
+                    encodeStr += alphUpperCase[j - 1] 
+                }
             }
         }
     }
     return encodeStr
 }
-let str = 'You are the best qa ever';
+
+let str = 'You Are the Best qa ever';
 
 console.log(encodeCaesarСode(str, -1))
