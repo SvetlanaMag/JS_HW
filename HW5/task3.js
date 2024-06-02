@@ -15,20 +15,37 @@ for (let i = 0; i < word.length; i++) {
 console.log(`word ${word} contains ${countV} vowels and ${countC} consonants`);
 
 //2
-let str1 = 'you are the best qa ever'
-let code = ''
-let alf = 'abcdefghijklmnopqrstuvwxyz'
-for (let i = 0; i < str1.length; i++) {
-    if (str1[i] === ' ') {    
-        code += ' '
+function encodeCaesarСode(str, offset) {
+    str = str.toLowerCase()
+    let encodeStr = ''
+    let alf = 'abcdefghijklmnopqrstuvwxyz'
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === ' ') {    
+            encodeStr += ' '
+        }
+        if(offset === 1) {
+            if (str[i] === 'z') {     
+                encodeStr += 'a'
+            }
+            for (j = 0; j < alf.length; j++) {
+                if (str[i] == alf[j] && str[i] !== 'z') {    
+                    encodeStr += alf[j + 1] 
+                } 
+            }
+        }
+        if(offset === -1) {
+            if (str[i] === 'a') {     
+                encodeStr += 'z'
+            }
+            for (j = 0; j < alf.length; j++) {
+                if (str[i] == alf[j] && str[i] !== 'a') {    
+                    encodeStr += alf[j - 1] 
+                } 
+            }
+        }
     }
-    if (str1[i] === 'z') {     
-        code += '*'
-    }
-    for (j = 0; j < alf.length; j++) {
-        if (str1[i] == alf[j] && str1[i] !== 'z') {    
-            code += alf[j + 1] 
-        } 
-    }
+    return encodeStr
 }
-console.log(code)
+let str = 'You are the best qa ever';
+
+console.log(encodeCaesarСode(str, -1))
