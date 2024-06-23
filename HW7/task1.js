@@ -10,8 +10,8 @@
 const arr = [NaN, 1, true, 5, "hello", undefined, 15.5, {}, []]
 
 function getOnlyNumbers(arrayOnAnyValues) {
-    let result = arrayOnAnyValues.filter(el => typeof el === 'number' && !isNaN(el))
-    return result
+    
+    return arrayOnAnyValues.filter(el => typeof el === 'number' && !isNaN(el))
 }
 
 console.log(getOnlyNumbers(arr));

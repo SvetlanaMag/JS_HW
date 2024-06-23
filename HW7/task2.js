@@ -7,11 +7,12 @@
 let str = 'I am the best AQA ever!'
 
 function lettersCount(string) {
-    let arr = string.toLowerCase().split('');
-    let abc = 'abcdefghijklmnopqrstuvwxyz';
-    let result = [];
+
+    const arr = string.toLowerCase().split('');
+    const result = [];
+
     for(const char of arr) {
-      if (abc.includes(char)){
+      if (char.match(/[a-z]/g)){
         let count = arr.filter(el => el === char).length;
         result.push(count);
       } else {
@@ -32,8 +33,8 @@ console.log(lettersCount(str));
 
 const prices = [64, 7556, 345, 7556, 345, 7556, 345, 7556, 433, 345, 756, 123, 942, 3112, 421, 9341, 1212, 8, 43, 41, 345, 341, 21, 321, 123];
 
-let sumOfPrices = prices.reduce((sum, el) => sum + el, 0);
-let avgPrice = prices.reduce((sum, el) => sum + el, 0)/prices.length;
+const sumOfPrices = prices.reduce((sum, el) => sum + el, 0);
+const avgPrice = prices.reduce((sum, el) => sum + el, 0)/prices.length;
 
 console.log(`Итого: ${sumOfPrices} $, средняя цена товара ${avgPrice} $`);
 
@@ -45,10 +46,7 @@ console.log(`Итого: ${sumOfPrices} $, средняя цена товара 
 const arr = ['string', 'number', 'undefind', 'symbol', 'array', 'object', 'null'];
 
 function countVowels(word) {
-  let vowels = 'aeiouy';
-  let count = word.split('').filter(char => vowels.includes(char)).length;
-  
-  return count;
+  return word.split('').filter(char => 'aeiouy'.includes(char)).length;;
 }
 
 function sortWords(arrayOfWords) {
@@ -67,23 +65,28 @@ console.log(sortWords(arr));
 
 const brackets = ['(', '(', ')', '(', ')','(', '(', '(', ')', ')', ')', ')'];
 
-const newBrackets = brackets.flat(Infinity);
-let leftBracketsCount = 0;
-let rightBracketsCount = 0;
+function isEqualPairBrackets(arr) {
+  const newBrackets = arr.flat(Infinity);
+  let leftBracketsCount = 0;
+  let rightBracketsCount = 0;
 
-for (let i = 0; i < newBrackets.length; i++) {
-    if (newBrackets[i] === '(') {
-        leftBracketsCount++;
-    } else if (newBrackets[i] === ')') {
-        rightBracketsCount++;
-    }
-};
+  for (let i = 0; i < newBrackets.length; i++) {
+      if (newBrackets[i] === '(') {
+          leftBracketsCount++;
+      } else if (newBrackets[i] === ')') {
+          rightBracketsCount++;
+      }
+  };
 
-if (leftBracketsCount === rightBracketsCount) {
-    console.log(`${leftBracketsCount} leftBrackets is equal ${rightBracketsCount} rightBrackets `); 
-} else {
-    console.log(`${leftBracketsCount} leftBrackets is not equal ${rightBracketsCount} rightBrackets `);
+  if (leftBracketsCount === rightBracketsCount) {
+      return `${leftBracketsCount} leftBrackets is equal ${rightBracketsCount} rightBrackets`; 
+  } else {
+      return `${leftBracketsCount} leftBrackets is not equal ${rightBracketsCount} rightBrackets`;
+  }
 }
+
+console.log(isEqualPairBrackets(brackets));
+
 
 
 
