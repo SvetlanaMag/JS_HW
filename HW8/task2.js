@@ -98,8 +98,8 @@ printEnterprise(enterprises);
 // getEnterpriseName(4) // Предприятие 1
 // getEnterpriseName("Отдел маркетинга") // Предприятие 2
 
-function getEnterpriseName(arg) {
-	const cloneEnterprises = new Object(enterprises).find(ent => ent.departments.find(dep => dep.id === arg || dep.name === arg))
+function getEnterpriseName(departmentIdOrName) {
+	const cloneEnterprises = new Object(enterprises).find(ent => ent.departments.find(dep => dep.id === departmentIdOrName || dep.name === departmentIdOrName))
 		
 	return cloneEnterprises ? cloneEnterprises.name : 'Department is not exist'
 }
@@ -112,26 +112,25 @@ console.log(getEnterpriseName('Отдел маркетинга'))
 // Пример:
 // addEnterprise("Название нового предприятия")
 
-function findMaxID() {
+function getNextID() {
 	const arr = []
 	for (let i = 0; i < enterprises.length; i++) {
 		arr.push(enterprises[i].id)
 		arr.push(...enterprises[i].departments.map(el => el.id))
 	}
-	return Math.max(...arr)
+	return Math.max(...arr) + 1
 }
 
 function addEnterprise(name) {
-	let nextID = findMaxID() + 1;
-	const copyEnterprise = structuredClone(enterprises) 
+	let nextID = getNextID();
 	const newEnterprise = {
 		id: nextID,
 		name: name,
 		departments: [],
 	};
-	copyEnterprise.push(newEnterprise)
+	enterprises.push(newEnterprise)
 	
-	return copyEnterprise
+	return enterprises
 }
 
 console.log(addEnterprise('Новое предприятие'));
@@ -142,18 +141,18 @@ console.log(addEnterprise('Новое предприятие'));
 // addDepartment(1, "Название нового отдела")
 
 function addDepartment(id, name) {
-	let nextID = findMaxID() + 1;
-	let copyEnterprise = structuredClone(enterprises) 
+	let nextID = getNextID();
+	 
 	const newDepartment = {
 		id: nextID,
 		name: name
 	};
 
-	copyEnterprise.find(enterprise => {
+	enterprises.find(enterprise => {
 		return enterprise.id === id ? enterprise.departments.push(newDepartment) : false
 	})
 
-	return copyEnterprise
+	return enterprises
 }
 
 console.log(addDepartment(5, 'Новый отдел'));
@@ -165,13 +164,12 @@ console.log(addDepartment(5, 'Новый отдел'));
 // editEnterprise(1, "Новое название предприятия")
 
 function editEnterprise(id, name) {
-	const copyEnterprise = structuredClone(enterprises) 
-
-	copyEnterprise.find(enterprise => {
+	
+	enterprises.find(enterprise => {
 		return enterprise.id === id ? enterprise.name = name : false
 	})
 
-	return copyEnterprise
+	return enterprises
 }
 
 console.log(editEnterprise(5, 'Новое название предприятия'));
@@ -180,15 +178,14 @@ console.log(editEnterprise(5, 'Новое название предприяти�
 // 6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела.
 
 function editDepartment(id, name) {
-	const copyEnterprise = structuredClone(enterprises) 
 
-	for (let i = 0; i < copyEnterprise.length; i++) {
-		copyEnterprise[i].departments.find(el => {
+	for (let i = 0; i < enterprises.length; i++) {
+		enterprises[i].departments.find(el => {
 			return el.id === id ? el.name = name : false
 		})
 	}
 
-	return copyEnterprise
+	return enterprises
 }
 
 console.log(editDepartment(7, 'Новое название отдела'));
